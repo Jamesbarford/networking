@@ -1,7 +1,7 @@
 OBJ_DIR	= ./output
 SRC = ./
 TARGET = main.out
-CFLAGS = -Wall -Wextra -Wpedantic -Wno-shadow -O0 -g
+CFLAGS = -Wall -Wextra -Werror -Wpedantic -Wno-shadow -O0 -g
 CC = cc
 
 ${OBJ_DIR}/%.o: ${SRC}/%.c

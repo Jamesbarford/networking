@@ -5,7 +5,7 @@
 #define PREFIX_LEN 16
 
 unsigned int get_ip_integral_equivalent(char *ip_address);
-static int get_net_mask(int mm);
+static unsigned int get_net_mask(int mm);
 
 static unsigned int get_subnet_cardinality(char mm) {
 	// max number of assignable IP addresses i.e: 24 -> 254,  20 -> 4094
@@ -17,7 +17,7 @@ static int check_ip_subnet_membership(char *network_id, char mask, char *check_i
 	unsigned int int_network_id = get_ip_integral_equivalent(network_id);
 	unsigned int ip_addr = get_ip_integral_equivalent(check_ip);
 	unsigned int cardinality = get_subnet_cardinality(mask);
-	int netmask = get_net_mask(mask);
+	unsigned int netmask = get_net_mask(mask);
 
 	int same_network = (int_network_id & netmask) == (ip_addr & netmask);
 	unsigned int machine_number = ~netmask & ip_addr;
@@ -28,11 +28,11 @@ static int check_ip_subnet_membership(char *network_id, char mask, char *check_i
 	return same_network == 1 ? 0 : -1;
 }
 
-static int get_net_mask(int mm) {
+static unsigned int get_net_mask(int mm) {
 	// assume mask is 10
 	// 11111111.11 000000.00000000.00000000
 	// what we want -> 0xFFC00000	
-	return ~((1 << (32 - mm)) - 1);
+	return (unsigned int)~((1 << (32 - mm)) - 1);
 }
 
 static void to_human_readable(int addr, char *outbuf) {
